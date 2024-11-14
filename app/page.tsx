@@ -2,8 +2,8 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <div>
-      <h1 className="text-3xl">StoreIt - The only storage you need.</h1>
+    <div className="flex-center h-screen">
+      <h1 className="text-3xl font-bold text-brand">StoreIt - The only storage you need.</h1>
     </div>
   );
 }
