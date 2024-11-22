@@ -38,9 +38,12 @@ const AuthForm = ({type} : { type : FormType}) => {
     <>
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="auth-form">
-        <FormField
+        <h1 className="form-title">
+            {type === "sign-in" ? "Sign In" : "Sign Up" }
+        </h1>
+        {type === "sign-up" &&<FormField
           control={form.control}
-          name="username"
+          name="fullName"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Username</FormLabel>
@@ -53,7 +56,7 @@ const AuthForm = ({type} : { type : FormType}) => {
               <FormMessage />
             </FormItem>
           )}
-        />
+        />}
         <Button type="submit">Submit</Button>
       </form>
     </Form>
