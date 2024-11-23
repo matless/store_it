@@ -41,22 +41,37 @@ const AuthForm = ({type} : { type : FormType}) => {
         <h1 className="form-title">
             {type === "sign-in" ? "Sign In" : "Sign Up" }
         </h1>
-        {type === "sign-up" &&<FormField
+        {type === "sign-up" &&
+        <FormField
           control={form.control}
           name="fullName"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Username</FormLabel>
-              <FormControl>
-                <Input placeholder="shadcn" {...field} />
-              </FormControl>
-              <FormDescription>
-                This is your public display name.
-              </FormDescription>
-              <FormMessage />
+                <div className="shad-form-item">
+                    <FormLabel>Full Name</FormLabel>
+                    <FormControl>
+                        <Input placeholder="Enter your full name" className="shad-input" {...field} />
+                    </FormControl>
+                </div>
+              <FormMessage className="shad-form-message" />
             </FormItem>
           )}
         />}
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+                <div className="shad-form-item">
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                        <Input placeholder="Enter your email" className="shad-input" {...field} />
+                    </FormControl>
+                </div>
+              <FormMessage className="shad-form-message" />
+            </FormItem>
+          )}
+        />
         <Button type="submit">Submit</Button>
       </form>
     </Form>
