@@ -7,13 +7,14 @@ import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { useState } from "react"
+import Image from "next/image"
  
 
 const formSchema = z.object({
@@ -24,6 +25,8 @@ const formSchema = z.object({
 
 type FormType = "sign-in" | "sign-up"
 const AuthForm = ({type} : { type : FormType}) => {
+    const [isLoading, setIsLoading] = useState(false);
+    
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -72,7 +75,18 @@ const AuthForm = ({type} : { type : FormType}) => {
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <Button type="submit" className="form-submit-button" disabled={isLoading}>
+            {type === "sign-in" ? "Sign in" : "Sign Up"}
+            {isLoading && (
+                <Image
+                src="/assets/icons/loader.svg"
+                alt="loader"
+                width={24}
+                height={24}
+                className="animate-spint ml-2"
+                 />
+            )}
+        </Button>
       </form>
     </Form>
     {/* OTP VERIFICATION */}
