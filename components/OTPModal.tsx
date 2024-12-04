@@ -1,3 +1,5 @@
+"use client";
+
 import {
     AlertDialog,
     AlertDialogAction,
@@ -15,14 +17,47 @@ import {
     InputOTPSeparator,
     InputOTPSlot,
   } from "@/components/ui/input-otp"
+import Image from "next/image";
+import { useState } from "react";
   
   
 const OTPModal = () => {
-  return <AlertDialog>
-  <AlertDialogTrigger>Open</AlertDialogTrigger>
-  <AlertDialogContent>
-    <AlertDialogHeader>
-      <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+    const [isOpen, setIsOpen] = useState(true);
+    const [password, setPassword] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+
+    const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        setIsLoading(true);
+
+        try{
+        
+        
+        }catch(error){
+            console.log("Failed to verify OTP",error);
+        }
+
+        setIsLoading(false);
+
+        const handleResendOtp = async () => {
+
+        }
+    };
+    
+    
+  return <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
+  <AlertDialogContent className="shad-alert-dialog">
+    <AlertDialogHeader className="relative flex justify-center">
+      <AlertDialogTitle className="h2 text-center">Enter your OTP
+        <Image
+        src="/assets/icons/close-dark.svg"
+        alt="close"
+        width={20}
+        height={20}
+        onClick={() => setIsOpen(false)}
+        className="otp-close-button"
+       />
+       </AlertDialogTitle>
       <AlertDialogDescription>
         This action cannot be undone. This will permanently delete your account
         and remove your data from our servers.
