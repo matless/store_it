@@ -23,7 +23,7 @@ const getUserByEmail = async (email: string) => {
         console.log(error, message);
         throw error;
     }
-const sendEmailOTP = async ({email} : {email: string}) => {
+export const sendEmailOTP = async ({email} : {email: string}) => {
     const {account} = await createAdminClient();
 
     try{
@@ -67,7 +67,7 @@ export const createAccount = async ({
     return parseStringify({accountId});
 };
 
-export const verifySecret = async ({accountId, password} :{accountId: string; password: string;}) => {
+export const verifySecret = async ({accountId, password,} :{accountId: string; password: string;}) => {
 
 try{
     const {account} = await createAdminClient();
