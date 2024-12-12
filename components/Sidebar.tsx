@@ -19,6 +19,12 @@ const Sidebar = () => {
     height={52}
     className="lg:hidden" />
     </Link>
+
+    <nav className="sidebar-nav">
+      <ul className="flex flex-1 flex-col gap-6">
+
+      </ul>
+    </nav>
   </aside>;
 };
 
