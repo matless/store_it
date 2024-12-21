@@ -7,12 +7,19 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet"
 import Image from "next/image";
+import { usePathname } from "next/navigation";
+import { useState } from "react";
 
 const MobileNavigation = () => {
+
+const [open, setOpen] = useState(false);
+const pathname = usePathname();
+
+
   return <header className="mobile-header">
     <Image src="/assets/icons/logo/-full-brand.svg" alt="logo" width={120} height={52} className="h-auto" />
 
-    <Sheet>
+    <Sheet open={open} onOpenChange={setOpen}>
   <SheetTrigger>Open</SheetTrigger>
   <SheetContent>
     <SheetHeader>
