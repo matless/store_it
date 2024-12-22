@@ -1,3 +1,4 @@
+"use client";
 import {
   Sheet,
   SheetContent,
@@ -20,7 +21,13 @@ const pathname = usePathname();
     <Image src="/assets/icons/logo/-full-brand.svg" alt="logo" width={120} height={52} className="h-auto" />
 
     <Sheet open={open} onOpenChange={setOpen}>
-  <SheetTrigger>Open</SheetTrigger>
+  <SheetTrigger>
+    <Image
+    src="/assets/icons/menu.svg"
+    alt="Search"
+    width={30}
+    height={30} />
+  </SheetTrigger>
   <SheetContent>
     <SheetHeader>
       <SheetTitle>Are you absolutely sure?</SheetTitle>
