@@ -11,7 +11,16 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 
-const MobileNavigation = () => {
+interface Props {
+  ownerId: string;
+  accountId: string;
+  fullName: string;
+  avatar: string;
+  email: string;
+
+}
+
+const MobileNavigation = ({ownerId, accountId, fullName, avatar, email,}: Props) => {
 
 const [open, setOpen] = useState(false);
 const pathname = usePathname();
@@ -28,14 +37,25 @@ const pathname = usePathname();
     width={30}
     height={30} />
   </SheetTrigger>
-  <SheetContent>
-    <SheetHeader>
-      <SheetTitle>Are you absolutely sure?</SheetTitle>
+  <SheetContent className="shad-sheet h-screen px-3">
+      <SheetTitle>
+        <div className="header-user">
+          <Image
+          src={avatar}
+          alt="avatar"
+          width={44}
+          height={44}
+          className="header-user-avatar" />
+        </div>
+        <div className="sm:hidden lg:block">
+          <p className="subtitle-2 capitalize">{fullName}</p>
+          <p className="caption">{email}</p>
+        </div>
+      </SheetTitle>
       <SheetDescription>
         This action cannot be undone. This will permanently delete your account
         and remove your data from our servers.
       </SheetDescription>
-    </SheetHeader>
   </SheetContent>
 </Sheet>
 
