@@ -10,6 +10,7 @@ import {
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { Separator } from "./ui/separator";
 
 interface Props {
   ownerId: string;
@@ -46,16 +47,15 @@ const pathname = usePathname();
           width={44}
           height={44}
           className="header-user-avatar" />
-        </div>
         <div className="sm:hidden lg:block">
           <p className="subtitle-2 capitalize">{fullName}</p>
           <p className="caption">{email}</p>
+          </div>
         </div>
+
+        <Separator className="mb-4 bg-light-200/20" />
       </SheetTitle>
-      <SheetDescription>
-        This action cannot be undone. This will permanently delete your account
-        and remove your data from our servers.
-      </SheetDescription>
+     
   </SheetContent>
 </Sheet>
 
