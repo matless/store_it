@@ -3,8 +3,9 @@
 import React, {useCallback, useState} from 'react';
 import {useDropzone} from 'react-dropzone';
 import { Button } from './ui/button';
-import { cn, getFileType } from '@/lib/utils';
+import { cn, convertFileToUrl, getFileType } from '@/lib/utils';
 import Image from 'next/image';
+import Thumbnail from './Thumbnail';
 
 
   interface Props {
@@ -45,6 +46,12 @@ const [files, setFiles] = useState<File[]>([]);
             <li 
             key={`${file.name}-${index}`}
             className="uploader-preview-item">
+              <div className="flex items-center gap-3">
+                <Thumbnail
+                type = {type}
+                extension = {extension}
+                url = {convertFileToUrl(file)} />
+              </div>
 
             </li>
           )
