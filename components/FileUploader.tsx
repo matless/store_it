@@ -22,7 +22,16 @@ const [files, setFiles] = useState<File[]>([]);
   const onDrop = useCallback(async (acceptedFiles : File[]) => {
     setFiles(acceptedFiles);
   }, []);
-  const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
+  const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop});
+
+  const handleRemoveFile = (
+    e: React.MouseEvent<HTMLImageElement, MouseEvent>,
+    fileName: string,
+  ) => {
+    e.stopPropagation();
+    setFiles((prevFiles) => prevFiles.filter((file) => 
+    file.name !==fileName));
+  };
 
   return (
     <div {...getRootProps()} className="cursor-pointer">
@@ -50,8 +59,25 @@ const [files, setFiles] = useState<File[]>([]);
                 <Thumbnail
                 type = {type}
                 extension = {extension}
-                url = {convertFileToUrl(file)} />
+                url = {convertFileToUrl(file)} 
+                />
+
+                <div className="preview-item-name">
+                  {file.name}
+                  <Image
+                  src="/assets/icons/file-loader.gif"
+                  width={80}
+                  height={26}
+                  alt="Loader" />
+                </div>
               </div>
+
+              <Image
+              src="/assets/icons/remove.svg"
+              width={24}
+              height={24}
+              alt="Remove"
+              onClick={(e) => handleRemoveFile(e, file.name)} />
 
             </li>
           )
