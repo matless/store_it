@@ -1,12 +1,10 @@
 "use server";
 
-import { UploadFileProps } from "@/types";
 import { createAdminClient } from "../appwrite";
 import { InputFile } from "node-appwrite/file";
 import { appwriteConfig } from "../appwrite/config";
 import { ID } from "node-appwrite";
 import { constructFileUrl, getFileType, parseStringify } from "../utils";
-import { unknown } from "zod";
 import { revalidatePath } from "next/cache";
 
 
