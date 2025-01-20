@@ -14,13 +14,16 @@ import {
 import { useState } from "react";
 import Image from "next/image";
 import { Models } from "node-appwrite";
+import { actionsDropdownItems } from "@/constants";
   
   
 
-const ActionsDropdown = ({ file }: { file: Models.Document }) => {
+const ActionDropdown = ({ file }: { file: Models.Document }) => {
 
     const [isModalOpen, setisModalOpen] = useState(false);
     const [isDropDownOpen, setisDropDownOpen] = useState(false);
+    const [action, setAction] = useState<ActionType | null>(null);
+    
     
     
   return (
@@ -35,13 +38,35 @@ const ActionsDropdown = ({ file }: { file: Models.Document }) => {
   </DropdownMenuTrigger>
   <DropdownMenuContent>
     <DropdownMenuLabel className="max-w-[200px] truncate">
-       
+       {file.name}
     </DropdownMenuLabel>
     <DropdownMenuSeparator />
-    <DropdownMenuItem>Profile</DropdownMenuItem>
-    <DropdownMenuItem>Billing</DropdownMenuItem>
-    <DropdownMenuItem>Team</DropdownMenuItem>
-    <DropdownMenuItem>Subscription</DropdownMenuItem>
+    {actionsDropdownItems.map((actionItem) => (
+      <DropdownMenuItem 
+      key={actionItem.value}
+      className="shad-dropdown-item" 
+      onClick={() => {
+        setAction(actionItem);
+
+        if(
+          [
+            "rename",
+            "share",
+            "delete",
+            "details"].includes(actionItem.value,
+
+            )
+          
+        ) {
+          setisModalOpen(true);
+        }
+
+      }}>
+        {actionItem.label}
+      </DropdownMenuItem>
+    ))}
+    
+    
   </DropdownMenuContent>
 </DropdownMenu>
 
@@ -50,4 +75,4 @@ const ActionsDropdown = ({ file }: { file: Models.Document }) => {
   );
 };
 
-export default ActionsDropdown;
+export default ActionDropdown;
