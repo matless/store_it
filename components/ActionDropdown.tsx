@@ -15,6 +15,8 @@ import { useState } from "react";
 import Image from "next/image";
 import { Models } from "node-appwrite";
 import { actionsDropdownItems } from "@/constants";
+import Link from "next/link";
+import { constructDownloadUrl } from "@/lib/utils";
   
   
 
@@ -62,7 +64,31 @@ const ActionDropdown = ({ file }: { file: Models.Document }) => {
         }
 
       }}>
-        {actionItem.label}
+        {actionItem.value === "download" ? (
+        <Link
+          href={constructDownloadUrl(file.bucketFileId)}
+          download={file.name}
+          className="flex items-center gap-2"
+        >
+          <Image
+          src={actionItem.icon}
+          alt={actionItem.label}
+          width={30}
+          height={30} 
+          />
+          {actionItem.label}
+         </Link>
+        ) : (
+          <div className="flex items-center gap-2">
+             <Image
+          src={actionItem.icon}
+          alt={actionItem.label}
+          width={30}
+          height={30} 
+          />
+          {actionItem.label}
+          </div>
+        )}
       </DropdownMenuItem>
     ))}
     
