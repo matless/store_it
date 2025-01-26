@@ -2,6 +2,7 @@ import { Models } from "node-appwrite";
 import Thumbnail from "./Thumbnail";
 import FormattedDateTime from "./FormattedDateTime";
 import { convertFileSize, formatDateTime } from "@/lib/utils";
+import { Input } from "./ui/input";
 
 const ImageThumbnail = ({file} : {file: Models.Document}) => (
   <div className="file-details-thumbnail">
@@ -36,5 +37,32 @@ export const FileDetails = ({file} : {file: Models.Document}) => {
   </>
   )
 };
+
+
+
+interface Props {
+  file: Models.Document;
+  onInputChange: React.Dispatch<React.SetStateAction<string[]>>;
+  onRemove: (email: string) => void;
+}
+export const ShareInput = ({file, onInputChange, onRemove}: Props) => {
+return (
+<>
+<ImageThumbnail file={file} />
+<div className="share-wrapper">
+  <p className="subtitle-2 pl-1 text-light-100">Share files with other users</p>
+  <Input
+  type="mail"
+  placeholder="Enter email address"
+  onChange={e => onInputChange(e.target.value.trim().split(","))}
+  className="share-input-field"
+   />
+
+</div>
+</>
+
+);
+};
+
 
 

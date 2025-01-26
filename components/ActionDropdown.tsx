@@ -25,7 +25,7 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { renameFile } from "@/lib/actions/file.actions";
 import { usePathname } from "next/navigation";
-import { FileDetails } from "./ActionsModalContent";
+import { FileDetails, ShareInput } from "./ActionsModalContent";
   
   
 
@@ -36,6 +36,8 @@ const ActionDropdown = ({ file }: { file: Models.Document }) => {
     const [action, setAction] = useState<ActionType | null>(null);
     const [name, setName] = useState(file.name);
     const [isLoading, setIsLoading] = useState(false);
+    const [emails, setEmails] = useState([]);
+    
 
     const path = usePathname();
 
@@ -69,7 +71,8 @@ const ActionDropdown = ({ file }: { file: Models.Document }) => {
     
 
     
-    
+    const handleRemoveUser = () => {};
+
     const renderDialogContent = () => {
       if(!action) return null;
 
@@ -87,8 +90,12 @@ const ActionDropdown = ({ file }: { file: Models.Document }) => {
                 onChange={(e) => setName(e.target.value)} 
               />
             )}
-            {value && "details" && <FileDetails file={file}/>}
-
+            
+            
+            {value === "details" && <FileDetails file={file}/>}
+            {value === "share" && (
+              <ShareInput file={file} onInputChange={setEmails} onRemove={handleRemoveUser}/>
+            )}
 
               
           </DialogHeader>
