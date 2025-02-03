@@ -1,10 +1,19 @@
 "use client";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Input } from "./ui/input";
+import { useSearchParams } from "next/navigation";
 
 const Search = () => {
   const [query, setQuery] = useState("");
+  const searchParams = useSearchParams();
+  const searchQuery = searchParams.get("query") || "";
+
+  useEffect(() => {
+    if (!searchQuery) {
+        setQuery("");
+    }
+  }, [searchQuery]);
   
   return (
   <div className="search">
