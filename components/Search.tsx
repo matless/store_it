@@ -2,11 +2,13 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { Input } from "./ui/input";
-import { useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { getFiles } from "@/lib/actions/file.actions";
 import { Models } from "node-appwrite";
 import Thumbnail from "./Thumbnail";
 import FormattedDateTime from "./FormattedDateTime";
+import { useDebounce } from 'use-debounce';
+
 
 const Search = () => {
   const [query, setQuery] = useState("");
@@ -15,18 +17,29 @@ const Search = () => {
   const [results, setResults] = useState<Models.Document[]>([]);
   const [open, setOpen] = useState(false);
   const router = useRouter();
+  const path = usePathname();
+  const [debouncedQuery] = useDebounce(query, 300);
+
   
+
+
   
 
   useEffect(() => {
     const fetchFiles = async () => {
-      const files = await getFiles({searchText: query});
+
+      if(debouncedQuery.length === 0) {
+        setResults([]);
+        setOpen(false);
+        return router.push(path.replace(searchParams.toString(), ""));
+      }
+      const files = await getFiles({types: [], searchText: debouncedQuery});
         setResults(files.documents);
         setOpen(true);
     };
 
     fetchFiles();
-  }, [query]);
+  }, [debouncedQuery]);
   
 
   useEffect(() => {
